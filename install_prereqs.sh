@@ -13,4 +13,4 @@ make install
 ln -s $(which swig) $(which swig | sed 's/\[^\/]*$/swig3.0/')
 
 brew install lame
-
+pip install .
