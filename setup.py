@@ -5,7 +5,7 @@
 from setuptools import setup, Extension
 
 interlace_module = Extension(
-    "_pymp3_c",
+    "pymp3decoder._pymp3_c",
     sources=[
         "pymp3decoder/pymp3_c.i",
     ],
@@ -19,7 +19,7 @@ interlace_module = Extension(
         '/opt/homebrew/lib',
         '/usr/local/lib',
     ],
-    swig_opts=['-c++', '-py3']
+    swig_opts=['-c++', '-py3', '-module', 'pymp3_c']
 )
 
 setup(
