@@ -1,8 +1,5 @@
 from . import pymp3_c
 import struct
-print(pymp3_c.__dict__)
-# # print all attributes
-# print(dir(pymp3_c))
 
 
 def get_pad(bn):
@@ -151,12 +148,13 @@ class Decoder(object):
         frame_idx = 0
         frame_num = 0
 
-        #fmt = "Frame {:d} at idx {:d} - header: {:s}"
-        #info = "Err protection {}, padded {}"
+        # fmt = "Frame {:d} at idx {:d} - header: {:s}"
+        # info = "Err protection {}, padded {}"
 
         # keep going till we run out of frames
         while frame_idx < len(mp3_buffer) - 4:
-            frame_header = struct.unpack("BBBB", mp3_buffer[frame_idx:frame_idx+4])
+            frame_header = struct.unpack(
+                "BBBB", mp3_buffer[frame_idx:frame_idx+4])
 
             if frame_header[0] != 255:
                 break
@@ -176,7 +174,8 @@ class Decoder(object):
             sample_rate = self.sample_rate_table[sample_bytes]
 
             # calculate frame size
-            frame_size = int(144*(1000*self.bitrate_table[bitrate_bits])/sample_rate)
+            frame_size = int(
+                144*(1000*self.bitrate_table[bitrate_bits])/sample_rate)
 
             if padded:
                 frame_size += 1
@@ -222,9 +221,11 @@ class Decoder(object):
 
                 total_samples_read += samples_read
         except ValueError as e:
-            raise RuntimeError("Caught exception '{}' - likely cause is that the PCM buffer was not big enough to hold all the decoded data for this frame".format(e))
+            raise RuntimeError(
+                "Caught exception '{}' - likely cause is that the PCM buffer was not big enough to hold all the decoded data for this frame".format(e))
 
-        pymp3_c.interlace_array(self.pcm_l, self.pcm_r, self.joined, total_samples_read)
+        pymp3_c.interlace_array(self.pcm_l, self.pcm_r,
+                                self.joined, total_samples_read)
 
         # first multiply by 2 because it's a bytearray and we are returning data
         # in shorts, which are 2 bytes. then, multiply by 2 again because we
