@@ -7,9 +7,19 @@ from setuptools import setup, Extension
 interlace_module = Extension(
     "_pymp3_c",
     sources=[
-        "pymp3decoder/swig_interface.i",
+        "pymp3decoder/pymp3_c.i",
     ],
-    libraries = ['mp3lame'],
+    libraries=['mp3lame'],
+    # Assuming homebrew on mac
+    include_dirs=[
+        '/opt/homebrew/include',
+        '/usr/local/include',
+    ],
+    runtime_library_dirs=[
+        '/opt/homebrew/lib',
+        '/usr/local/lib',
+    ],
+    swig_opts=['-c++', '-py3']
 )
 
 setup(
@@ -20,9 +30,7 @@ setup(
     keywords="mp3 decoder",
     author_email="michael.boulton@gmail.com",
     description="Simple chunked mp3 decoder",
-    use_2to3=True,
     ext_modules=[interlace_module],
-    py_modules=["pymp3_c"],
     packages=["pymp3decoder"],
     test_suite="tests",
     setup_requires=['pytest-runner'],

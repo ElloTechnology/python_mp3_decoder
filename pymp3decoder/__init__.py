@@ -1,4 +1,4 @@
-import pymp3_c
+from . import _pymp3_c
 import struct
 
 
@@ -51,7 +51,7 @@ class Decoder(object):
 
         self.joined = bytearray([0]*pcm_buf_size*2)
 
-        self.decoder = pymp3_c.LameDecoder()
+        self.decoder = _pymp3_c.LameDecoder()
 
     def get_tag_length(self, mp3_buffer):
         """ Get tag length of ID3v2 header
@@ -221,7 +221,7 @@ class Decoder(object):
         except ValueError as e:
             raise RuntimeError("Caught exception '{}' - likely cause is that the PCM buffer was not big enough to hold all the decoded data for this frame".format(e))
 
-        pymp3_c.interlace_array(self.pcm_l, self.pcm_r, self.joined, total_samples_read)
+        _pymp3_c.interlace_array(self.pcm_l, self.pcm_r, self.joined, total_samples_read)
 
         # first multiply by 2 because it's a bytearray and we are returning data
         # in shorts, which are 2 bytes. then, multiply by 2 again because we

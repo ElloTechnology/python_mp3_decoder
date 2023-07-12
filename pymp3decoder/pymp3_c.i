@@ -34,7 +34,7 @@ typedef struct LameDecoder {
     }
 
     LameDecoder(){
-        LameDecoder * x = malloc(sizeof(LameDecoder));
+        LameDecoder * x = (LameDecoder *)malloc(sizeof(LameDecoder));
         x->gfp = hip_decode_init();
         return x;
     }
