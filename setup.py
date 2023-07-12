@@ -5,7 +5,7 @@
 from setuptools import setup, Extension
 
 interlace_module = Extension(
-    "pymp3decoder._pymp3_c",
+    "_pymp3_c",
     sources=[
         "pymp3decoder/swig_interface.i",
     ],
@@ -20,6 +20,7 @@ setup(
     keywords="mp3 decoder",
     author_email="michael.boulton@gmail.com",
     description="Simple chunked mp3 decoder",
+    use_2to3=True,
     ext_modules=[interlace_module],
     py_modules=["pymp3_c"],
     packages=["pymp3decoder"],

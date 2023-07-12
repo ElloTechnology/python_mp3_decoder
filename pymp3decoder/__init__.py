@@ -246,8 +246,8 @@ class Decoder(object):
                 channel mode
         """
 
-        # Our mp3 has no metadata containers. This code improperly strips the beginning
-        # of the audio, so I'm just ignoring it for now.
+        # Our audio doesn't have a metadata container, and this improperly strips the start of the
+        # audio, so I'm just skipping it for now.
         """
         # need to strip the tag off the first chunk
         first_chunk = next(content)
@@ -273,8 +273,6 @@ class Decoder(object):
                         break
         else:
             remaining = ""
-
-        remaining = bytearray(remaining)
         """
         remaining = bytearray()
 
