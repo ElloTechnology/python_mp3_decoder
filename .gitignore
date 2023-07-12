@@ -3,3 +3,6 @@ __pycache__/*
 .cache/*
 build/*
 pymp3decoder.egg-info
+swig-3.0.12
+swig-3.0.12.tar.gz
+.eggs
