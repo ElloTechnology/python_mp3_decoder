@@ -246,6 +246,9 @@ class Decoder(object):
                 channel mode
         """
 
+        # Our mp3 has no metadata containers. This code improperly strips the beginning
+        # of the audio, so I'm just ignoring it for now.
+        """
         # need to strip the tag off the first chunk
         first_chunk = next(content)
         tag_length = self.get_tag_length(first_chunk)
@@ -272,6 +275,8 @@ class Decoder(object):
             remaining = ""
 
         remaining = bytearray(remaining)
+        """
+        remaining = bytearray()
 
         for chunk in content:
             decoded_chunk, remaining = self.decode(chunk, remaining)
