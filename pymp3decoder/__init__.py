@@ -190,6 +190,8 @@ class Decoder(object):
         for i, _ in enumerate(frame_indexes):
             frame_indexes[i] = sum(frame_sizes[:i])
 
+        if not frame_sizes:
+            raise RuntimeWarning(f"Failed to decode chunk: {mp3_data}")
         # total size of frames, excluding parts of frames that weren't fully included in this chunk
         total_frames_size = sum(frame_sizes)
         # number of bytes left at the end of mp3_data that won't be parsed in this pass
